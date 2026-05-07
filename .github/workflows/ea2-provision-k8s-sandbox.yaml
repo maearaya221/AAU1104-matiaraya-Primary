@@ -1,1 +1,22 @@
-
+name: Provisionar MV + K3S + AWS
+ 
+on:
+  workflow_dispatch:
+ 
+jobs:
+  remote-workflow:
+    uses: asanchezo-duoc/AUY1104-SharedWorkflows/.github/workflows/ea2-provision-k8s-sandbox.yaml@main
+    with:
+      aws_region: us-east-1
+      instance_type: t3.medium
+      ssh_cidr_ipv4: 0.0.0.0/0
+      k8s_api_cidr_ipv4: 0.0.0.0/0
+      k8s_stack: k3s
+      provision_dockerhub: true
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+      EA2_SSH_PRIVATE_KEY: ${{ secrets.EA2_SSH_PRIVATE_KEY }}
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
