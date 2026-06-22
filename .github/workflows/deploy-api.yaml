@@ -124,15 +124,15 @@ jobs:
           ssh -o StrictHostKeyChecking=accept-new \
             "ubuntu@${{ inputs.k3s-server-public-ip }}" \
             'sudo k3s kubectl rollout status deployment/demo-api --timeout=60s'
-       - name: Rollback automatico
-         if: failure()
-         run: |
-           ssh -o StrictHostKeyChecking=accept-new \
-             "ubuntu@${{ inputs.k3s-server-public-ip }}" \ 
+      - name: Rollback automatico
+        if: failure()
+        run: |
+         ssh -o StrictHostKeyChecking=accept-new \
+           "ubuntu@${{ inputs.k3s-server-public-ip }}" \ 
              '
-             sudo k3s kubectl rollout undo deployment/demo-api
-             sudo k3s kubectl rollout status deployment/demo-api --timeout=60s
-             '
+           sudo k3s kubectl rollout undo deployment/demo-api
+           sudo k3s kubectl rollout status deployment/demo-api --timeout=60s
+           '
              
              
 
